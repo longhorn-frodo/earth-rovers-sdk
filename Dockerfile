@@ -1,14 +1,17 @@
 # Use a base image with Python
-FROM --platform=linux/arm64/v8 python:3.9
+FROM --platform=linux/amd64 python:3.9
 
 # Define environment variables
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
-ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
+ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/google-chrome
 
-# Install necessary packages and Chromium
+# Install necessary packages and Google Chrome
 RUN apt-get update \
   && apt-get install -y wget gnupg \
-  && apt-get install -y chromium fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-khmeros fonts-kacst fonts-freefont-ttf libxss1 \
+  && wget -qO- https://dl.google.com/linux/linux_signing_key.pub | gpg --dearmor > /usr/share/keyrings/google-chrome.gpg \
+  && echo "deb [signed-by=/usr/share/keyrings/google-chrome.gpg] http://dl.google.com/linux/chrome/deb/ stable main" | tee /etc/apt/sources.list.d/google-chrome.list \
+  && apt-get update \
+  && apt-get install -y google-chrome-stable fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-khmeros fonts-kacst fonts-freefont-ttf libxss1 \
   --no-install-recommends \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
@@ -31,6 +34,7 @@ ENV PATH="/app/venv/bin:$PATH"
 
 # Expose the application port
 EXPOSE 8000
+EXPOSE 8001
 
 # Command to run the application
 CMD ["python3", "-m", "hypercorn", "main:app", "--bind", "0.0.0.0:8000"]
