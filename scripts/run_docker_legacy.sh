@@ -121,4 +121,4 @@ docker run -it --rm \
     -e CHROME_EXECUTABLE_PATH=/usr/bin/google-chrome \
     -e MAP_ZOOM_LEVEL=18 \
     -v /scratch/frodo_robot/frodo_baseline_ws/src:/app/frodo_baseline_ws \
-    earth-rover-sdk /bin/bash
+    earth-rover-sdk

@@ -136,3 +136,4 @@ class BrowserService:
             await self.browser.close()
             self.browser = None
             self.page = None
+# python3 -m hypercorn main:app --bind 0.0.0.0:8000 > logs.txt 2>&1

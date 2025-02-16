@@ -120,5 +120,5 @@ docker run -it --rm \
     -e SDK_API_TOKEN=2KD87439sM1L4ioqxLT6WK9ZgWWade4psEj6E2FfNfNWtjQfGZ4GGGrKGu4nVaLCAPnjW8fi5RV8FtpHcnMB7UJxT7p3rscdexfF \
     -e CHROME_EXECUTABLE_PATH=/usr/bin/google-chrome \
     -e MAP_ZOOM_LEVEL=18 \
-    -v /scratch/frodo_robot/frodo_baseline_ws/src:/app/frodo_baseline_ws \
-    earth-rover-sdk
+    -v /scratch/frodo_robot/frodo_baseline_ws/external/earth-rovers-sdk:/app/earth-rovers-sdk \
+    earth-rover-sdk /bin/bash
