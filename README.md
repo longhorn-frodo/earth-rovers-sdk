@@ -13,6 +13,12 @@ cd $EARTH_ROVER_SDK_DIR
 ssh -L 8000:0.0.0.0:8000 $SERVERNAME
 ```
 
+While in the docker container, run the following command to start the earth-rovers-sdk.
+```bash
+cd earth-rovers-sdk
+hypercorn main:app --reload
+```
+
 To build docker container for running SDK. 
 ```bash
 cd $EARTH_ROVER_SDK_DIR
