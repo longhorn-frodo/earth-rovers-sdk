@@ -10,13 +10,19 @@ To start docker container for running SDK. This will run on port 8000 by default
 ```bash
 cd $EARTH_ROVER_SDK_DIR
 ./scripts/run_docker.sh
-ssh -L 8000:0.0.0.0:8000 $SERVERNAME
 ```
 
 While in the docker container, run the following command to start the earth-rovers-sdk.
 ```bash
 cd earth-rovers-sdk
 hypercorn main:app --reload
+```
+
+## Viewing the SDK
+To view the sdk on your computer, ssh into the server that your SDK is running on, indicated by `$SERVERNAME`
+
+```
+ssh -L 8000:0.0.0.0:8000 $SERVERNAME
 ```
 
 To build docker container for running SDK. 
