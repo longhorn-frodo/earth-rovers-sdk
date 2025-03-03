@@ -6,19 +6,30 @@
 
 # AMRL Modifications
 
+### Run 
 To start docker container for running SDK. This will run on port 8000 by default.
 ```bash
 cd $EARTH_ROVER_SDK_DIR
 ./scripts/run_docker.sh
+cd earth-rovers-sdk
+python3 -m hypercorn main:app --bind 0.0.0.0:8000
+```
+
+Then port forward from your local machine:
+```bash
 ssh -L 8000:0.0.0.0:8000 $SERVERNAME
 ```
 
+#### Debugging
+If you encounter problem when running `python3 -m hypercorn main:app --bind 0.0.0.0:8000`. Try killing all processes of the current user `kill -9 -1` and then retry the steps.
+
+
+### Build for first time
 To build docker container for running SDK. 
 ```bash
 cd $EARTH_ROVER_SDK_DIR
 ./build_docker.sh
 ```
-
 # Earth Rovers SDK v4.5
 
 ## Requirements
