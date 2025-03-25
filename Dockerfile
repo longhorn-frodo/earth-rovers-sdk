@@ -35,5 +35,7 @@ ENV PATH="/app/venv/bin:$PATH"
 EXPOSE 8000
 EXPOSE 8001
 
+WORKDIR /app/earth-rovers-sdk
+
 # Command to run the application
 CMD ["/bin/bash"]

@@ -11,8 +11,6 @@ To start docker container for running SDK. This will run on port 8000 by default
 ```bash
 cd $EARTH_ROVER_SDK_DIR
 ./scripts/run_docker.sh
-cd earth-rovers-sdk
-python3 -m hypercorn main:app --bind 0.0.0.0:8000
 ```
 
 Then port forward from your local machine:

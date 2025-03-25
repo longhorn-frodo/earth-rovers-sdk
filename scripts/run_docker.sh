@@ -109,8 +109,22 @@ if [[ "$(docker ps -aq -f name=$CONTAINER_NAME)" ]]; then
     docker ps | grep $CONTAINER_NAME | awk '{print $1}' | xargs docker rm
 fi
 
-# Runs without mission slug
-docker run -it --rm \
+DEBUG_BASH=false
+
+# Parse command-line arguments
+for arg in "$@"; do
+    case $arg in
+        --debug)
+        DEBUG_BASH=true
+        shift
+        ;;
+        *)
+        ;;
+    esac
+done
+
+# Base docker run command
+DOCKER_CMD=(docker run -it --rm \
     --net=host \
     --ipc=host \
     --pid=host \
@@ -121,4 +135,10 @@ docker run -it --rm \
     -e CHROME_EXECUTABLE_PATH=/usr/bin/google-chrome \
     -e MAP_ZOOM_LEVEL=18 \
     -v /scratch/frodo_robot/frodo_baseline_ws/external/earth-rovers-sdk:/app/earth-rovers-sdk \
-    earth-rover-sdk /bin/bash
+    earth-rover-sdk)
+
+if [ "$DEBUG_BASH" = false ]; then
+    "${DOCKER_CMD[@]}" /bin/bash -c "python3 -m hypercorn main:app --bind 0.0.0.0:8000"
+else
+    "${DOCKER_CMD[@]}" /bin/bash
+fi
