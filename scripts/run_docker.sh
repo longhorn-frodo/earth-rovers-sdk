@@ -40,7 +40,7 @@
 # MISSION_SLUG="mission-3"
 
 # Ours (Updated)
-BOT_SLUG="upsilon-zest-lion"
+# BOT_SLUG="upsilon-zest-lion"
 
 # Ours 
 # BOT_SLUG="knit-weld-gnu"
@@ -96,6 +96,9 @@ BOT_SLUG="upsilon-zest-lion"
 # BOT_SLUG="quirk-hen-crab"
 # MISSION_SLUG="mission-3"
 
+# Ours (Updated)
+BOT_SLUG="upsilon-zest-lion" # default
+MISSION_SLUG=""
 CONTAINER_NAME="earth-rover-sdk"
 # Check if the container is already running
 if [[ "$(docker ps -q -f name=$CONTAINER_NAME)" ]]; then
@@ -112,17 +115,26 @@ fi
 DEBUG_BASH=false
 
 # Parse command-line arguments
-for arg in "$@"; do
-    case $arg in
+while [[ "$#" -gt 0 ]]; do
+    case $1 in
         --debug)
-        DEBUG_BASH=true
-        shift
-        ;;
+            DEBUG_BASH=true
+            shift
+            ;;
+        --bot)
+            BOT_SLUG="$2"
+            shift 2
+            ;;
+        --mission)
+            MISSION_SLUG="$2"
+            shift 2
+            ;;
         *)
-        ;;
+            echo "Unknown parameter passed: $1"
+            shift
+            ;;
     esac
 done
-
 # Base docker run command
 DOCKER_CMD=(docker run -it --rm \
     --net=host \
